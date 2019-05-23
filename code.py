@@ -255,8 +255,8 @@ def encrypt(plain_text, sub_keys):
   plain_textb = ""
   for i in range(16):
     plain_textb += '{0:04b}'.format(int(plain_text[i], base =16))
-  #plain_textp = permutation(plain_textb)       #Intital permutation
-  plain_textp = plain_textb                   #Intital permutation removed
+  plain_textp = permutation(plain_textb)       #Intital permutation
+  #plain_textp = plain_textb                   #Intital permutation removed
   left,right = plain_textp[:32],plain_textp[32:]
   for i in range(3):                   #changeno
     out = func(right,sub_keys[i])     #function called on right half data
@@ -267,8 +267,8 @@ def encrypt(plain_text, sub_keys):
   out = func(right,sub_keys[3])
   temp = int(out, base=2) ^ int(left , base=2)
   left = '{0:032b}'.format(temp)
-  #final = inv_per(left+right)            #Inverse permutation after 16 rounds
-  final = left+right             #Inverse permutation removed
+  final = inv_per(left+right)            #Inverse permutation after 4 rounds
+  #final = left+right             #Inverse permutation removed
   cipher = hex(int(final,2))[2:]
   return cipher
 
